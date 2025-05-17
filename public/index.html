@@ -4,8 +4,34 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Koma XS Services Store</title>
+
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Koma XS Services—premium game mods & hands-on Python lessons. Secure checkout via Stripe & Google Pay."/>
+  <meta name="keywords" content="game mods, Python lessons, coding tutorials, Stripe, Google Pay"/>
+  <meta name="author" content="Koma XS Services"/>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Koma XS Services Store"/>
+  <meta property="og:description" content="Premium game mods & hands-on Python lessons. Secure checkout via Stripe & Google Pay."/>
+  <meta property="og:url" content="https://your-domain.com"/>
+  <meta property="og:image" content="https://your-domain.com/assets/og-preview.png"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Koma XS Services Store"/>
+  <meta name="twitter:description" content="Premium game mods & hands-on Python lessons. Secure checkout via Stripe & Google Pay."/>
+  <meta name="twitter:image" content="https://your-domain.com/assets/twitter-preview.png"/>
+  <meta name="twitter:site" content="@YourTwitterHandle"/>
+
+  <!-- Mobile & Favicon -->
+  <meta name="theme-color" content="#050505"/>
+  <link rel="icon" href="/favicon.ico"/>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet"/>
+
   <style>
     :root {
       --bg: #050505;
@@ -24,155 +50,119 @@
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin:0; padding:0 }
     html, body {
-      height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
+      height:100%; background: var(--bg); color: var(--text); overflow-x:hidden;
     }
     body {
       font-family: 'Poppins', sans-serif;
     }
     body::before {
-      content: '';
-      position: fixed; top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: linear-gradient(60deg, #ff64c8, #7f00ff, #00ffe7);
-      animation: hueShift 20s linear infinite;
-      mix-blend-mode: overlay;
-      z-index: -1;
+      content:''; position:fixed; top:-50%; left:-50%;
+      width:200%; height:200%;
+      background: linear-gradient(60deg, #ff64c8,#7f00ff,#00ffe7);
+      animation:hueShift 20s linear infinite;
+      mix-blend-mode: overlay; z-index:-1;
     }
     header {
       backdrop-filter: blur(10px);
       background: var(--surface);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2rem; position: sticky; top: 0; z-index: 10;
-      box-shadow: 0 2px 12px var(--shadow);
-      animation: fadeInUp 0.6s both;
+      display: flex; align-items:center; justify-content:space-between;
+      padding:1rem 2rem; position:sticky; top:0; z-index:10;
+      box-shadow:0 2px 12px var(--shadow);
+      animation: fadeInUp .6s both;
     }
     header h1 {
-      font-family: 'Orbitron', sans-serif;
-      color: var(--accent);
-      font-size: 1.8rem;
-      letter-spacing: 2px;
+      font-family:'Orbitron',sans-serif; color:var(--accent);
+      font-size:1.8rem; letter-spacing:2px;
     }
-    nav .tabs { list-style: none; display: flex; }
+    nav .tabs { list-style:none; display:flex; }
     nav .tabs button {
-      position: relative;
-      background: none; border: none;
-      margin-left: 1.5rem; padding: .5rem 0;
-      font-family: 'Orbitron', sans-serif;
-      font-size: .95rem;
-      color: var(--text);
-      cursor: pointer;
+      position:relative;
+      background:none; border:none;
+      margin-left:1.5rem; padding:.5rem 0;
+      font-family:'Orbitron',sans-serif; font-size:.95rem;
+      color:var(--text); cursor:pointer;
       transition: color var(--transition);
     }
     nav .tabs button::after {
-      content: '';
-      position: absolute; bottom: -2px; left: 0;
-      width: 0; height: 2px;
-      background: var(--accent);
+      content:''; position:absolute; bottom:-2px; left:0;
+      width:0; height:2px; background:var(--accent);
       transition: width var(--transition);
     }
-    nav .tabs button:hover { color: var(--accent); }
-    nav .tabs button:hover::after { width: 100%; }
-    nav .tabs button.active { color: var(--accent); }
-    nav .tabs button.active::after { width: 100%; }
-    main { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+    nav .tabs button:hover { color:var(--accent); }
+    nav .tabs button:hover::after { width:100%; }
+    nav .tabs button.active { color:var(--accent); }
+    nav .tabs button.active::after { width:100%; }
+    main {
+      max-width:1200px; margin:2rem auto; padding:0 1rem;
+    }
     .hero {
-      text-align: center;
-      padding: 4rem 1rem;
-      animation: fadeInUp 0.8s both 0.3s;
+      text-align:center; padding:4rem 1rem;
+      animation: fadeInUp .8s both .3s;
     }
     .hero h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3rem;
-      color: var(--accent);
-      text-shadow: 0 0 12px var(--shadow);
-      margin-bottom: .5rem;
+      font-family:'Orbitron',sans-serif; font-size:3rem;
+      color:var(--accent); text-shadow:0 0 12px var(--shadow);
+      margin-bottom:.5rem;
     }
     .hero p {
-      max-width: 600px;
-      margin: 0 auto;
-      color: #bbb;
-      font-size: 1.1rem;
-    }
-    /* Embed Section */
-    .embed-section {
-      margin: 2rem 0;
-      animation: fadeInUp 0.8s both 0.5s;
-    }
-    .embed-container {
-      position: relative;
-      width: 100%; padding-bottom: 56.25%;
-      background: var(--surface);
-      box-shadow: 0 8px 32px var(--shadow);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .embed-container iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
+      max-width:600px; margin:0 auto; color:#bbb; font-size:1.1rem;
     }
     .tab-content {
-      display: none;
-      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-      animation: fadeInUp 0.6s both;
+      display:none;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:2rem; margin-top:2rem;
+      animation: fadeInUp .6s both;
     }
-    .tab-content.active { display: grid; }
+    .tab-content.active { display:grid; }
     .card {
-      background: var(--surface);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px var(--shadow);
-      transition: transform var(--transition), box-shadow var(--transition);
-      opacity: 0; transform: translateY(20px);
+      background:var(--surface); border-radius:12px; overflow:hidden;
+      box-shadow:0 4px 20px var(--shadow);
+      transition:transform var(--transition),box-shadow var(--transition);
+      opacity:0; transform:translateY(20px);
     }
-    .card.visible { opacity: 1; transform: translateY(0); }
+    .card.visible { opacity:1; transform:translateY(0); }
     .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 32px var(--shadow);
+      transform:translateY(-8px);
+      box-shadow:0 12px 32px var(--shadow);
     }
     .card img {
-      width: 100%; height: 180px; object-fit: cover;
-      transition: transform var(--transition);
+      width:100%; height:180px; object-fit:cover;
+      transition:transform var(--transition);
     }
-    .card:hover img { transform: scale(1.05); }
-    .info { padding: 1.5rem; }
+    .card:hover img { transform:scale(1.05); }
+    .info {
+      padding:1.5rem;
+    }
     .info h3 {
-      font-family: 'Orbitron', sans-serif;
-      color: var(--accent);
-      font-size: 1.4rem;
-      margin-bottom: .5rem;
+      font-family:'Orbitron',sans-serif; color:var(--accent);
+      font-size:1.4rem; margin-bottom:.5rem;
     }
     .info p {
-      color: #bbb; margin-bottom: 1rem; line-height: 1.4;
+      color:#bbb; margin-bottom:1rem; line-height:1.4;
     }
     .price {
-      font-weight: 500; font-size: 1.2rem; margin-bottom: 1rem;
+      font-weight:500; font-size:1.2rem; margin-bottom:1rem;
     }
     .buy-btn {
-      width: 100%; padding: .75rem;
-      background: var(--accent); color: #000;
-      border: none; border-radius: 8px;
-      font-family: 'Orbitron', sans-serif; font-size: 1rem;
-      cursor: pointer; transition: background var(--transition);
+      width:100%; padding:.75rem; background:var(--accent);
+      color:#000; border:none; border-radius:8px;
+      font-family:'Orbitron',sans-serif; font-size:1rem;
+      cursor:pointer; transition:background var(--transition);
     }
-    .buy-btn:hover:not(:disabled) { background: #ff33aa; }
+    .buy-btn:hover:not(:disabled) { background:#ff33aa; }
     .buy-btn:disabled {
-      background: #444; cursor: not-allowed;
+      background:#444; cursor:not-allowed;
     }
     footer {
-      text-align: center; padding: 2rem 1rem;
-      color: #555; font-size: .9rem;
-      animation: fadeInUp 0.6s both 0.7s;
+      text-align:center; padding:2rem 1rem;
+      color:#555; font-size:.9rem;
+      animation: fadeInUp .6s both .7s;
     }
     @media (max-width: 600px) {
-      header { flex-direction: column; align-items: flex-start; }
-      nav .tabs { margin-top: .5rem; }
+      header { flex-direction:column; align-items:flex-start; }
+      nav .tabs { margin-top:.5rem; }
     }
   </style>
 </head>
@@ -193,18 +183,9 @@
       <p>Premium game mods and hands-on Python lessons—secure checkout with Stripe & Google Pay.</p>
     </section>
 
-    <!-- EMBED SECTION -->
-    <section class="embed-section">
-      <div class="embed-container">
-        <iframe src="https://www.youtube.com/embed/xvFZjo5PgG0" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-      </div>
-    </section>
-
     <section id="mods" class="tab-content active">
       <div class="card">
-        <img src="https://raw.githubusercontent.com/KomaVR/KomaXSServices/refs/heads/main/23efa195-9683-4214-8878-5ecc77158b27%7E2.png?token=GHSAT0AAAAAAC76PNYH4FVHRYOS526E22T22BI5BUQ" alt="Custom Modded Apk"/>
+        <img src="https://raw.githubusercontent.com/KomaVR/KomaXSServices/refs/heads/main/23efa195-9683-4214-8878-5ecc77158b27~2.png" alt="Custom Modded Apk"/>
         <div class="info">
           <h3>Custom Modded Apk</h3>
           <p>Admin items, gameplay-enhancing cheats, and more.</p>
@@ -212,12 +193,12 @@
           <button class="buy-btn" data-product="product1">Buy Now</button>
         </div>
       </div>
-      <!-- More mod cards... -->
+      <!-- more mod cards… -->
     </section>
 
     <section id="lessons" class="tab-content">
       <div class="card">
-        <img src="https://raw.githubusercontent.com/KomaVR/KomaXSServices/refs/heads/main/01a3b797-589e-40b9-a0aa-ae00d169cd70%7E3.png?token=GHSAT0AAAAAAC76PNYGJFJY5O23WO3U555U2BI5A3Q" alt="Python 101"/>
+        <img src="https://raw.githubusercontent.com/KomaVR/KomaXSServices/refs/heads/main/01a3b797-589e-40b9-a0aa-ae00d169cd70~3.png" alt="Python 101"/>
         <div class="info">
           <h3>Python 101</h3>
           <p>From variables to LOOPS: your hands-on guide to Python mastery.</p>
@@ -225,27 +206,26 @@
           <button class="buy-btn" data-product="product2">Buy Now</button>
         </div>
       </div>
-      <!-- More lesson cards... -->
+      <!-- more lesson cards… -->
     </section>
   </main>
 
   <footer>
-    &copy; 2025 Koma XS Services • 
+    &copy; 2025 Koma XS Services •
     <a href="mailto:komacspentest@gmail.com" style="color: var(--accent)">komacspentest@gmail.com</a>
   </footer>
 
   <script>
-    // Tab switching + staggered reveal
     const tabs = document.querySelectorAll('nav .tabs button');
     const panels = document.querySelectorAll('.tab-content');
     tabs.forEach(btn => {
       btn.addEventListener('click', () => {
         tabs.forEach(t => {
           t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
+          t.setAttribute('aria-selected','false');
         });
         btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
+        btn.setAttribute('aria-selected','true');
         panels.forEach(panel => {
           if (panel.id === btn.dataset.tab) {
             panel.classList.add('active');
@@ -260,31 +240,29 @@
       });
     });
 
-    // Initial reveal for Mods
     window.addEventListener('load', () => {
       document.querySelectorAll('#mods .card').forEach((c,i) => {
         setTimeout(() => c.classList.add('visible'), i * 150);
       });
     });
 
-    // Buy button flow
     document.querySelectorAll('.buy-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
         btn.disabled = true;
-        const label = btn.textContent;
+        const text = btn.textContent;
         btn.textContent = 'Processing…';
         try {
           const res = await fetch('/create-checkout-session', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ productId: btn.dataset.product })
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({productId: btn.dataset.product})
           });
-          const { url } = await res.json();
+          const {url} = await res.json();
           window.location = url;
         } catch {
           alert('Payment error, please try again.');
           btn.disabled = false;
-          btn.textContent = label;
+          btn.textContent = text;
         }
       });
     });
