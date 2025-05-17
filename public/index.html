@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Mods & Lessons Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #1a1a1a;
+      --accent: #00ff99;
+      --text: #e0e0e0;
+      --shadow: rgba(0,255,153,0.2);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--surface);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      box-shadow: 0 2px 8px var(--shadow);
+      z-index: 10;
+    }
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent);
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+    }
+    nav .tabs {
+      list-style: none;
+      display: flex;
+    }
+    nav .tabs button {
+      background: none;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin-left: 1rem;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: color .2s, border-bottom .2s;
+      border-bottom: 2px solid transparent;
+    }
+    nav .tabs button.active {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    main {
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: var(--surface);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px var(--shadow);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 32px var(--shadow);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .info {
+      padding: 1.5rem;
+    }
+    .info h3 {
+      margin-bottom: .5rem;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent);
+      font-size: 1.25rem;
+    }
+    .info p {
+      font-size: .9rem;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+    .price {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .buy-btn {
+      width: 100%;
+      padding: .75rem;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .buy-btn:disabled {
+      background: #444;
+      cursor: not-allowed;
+    }
+    .buy-btn:hover:not(:disabled) {
+      background: #00e688;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #555;
+      font-size: .85rem;
+    }
+    @media (max-width: 600px) {
+      header { flex-direction: column; align-items: flex-start; }
+      nav .tabs { margin-top: .5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Modℓify</h1>
+    <nav>
+      <ul class="tabs" role="tablist">
+        <li><button id="mods-tab" class="active" role="tab" aria-selected="true" data-tab="mods">Mods</button></li>
+        <li><button id="lessons-tab" role="tab" aria-selected="false" data-tab="lessons">Lessons</button></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="mods" class="tab-content active" role="tabpanel" aria-labelledby="mods-tab">
+      <div class="product-grid">
+        <div class="card">
+          <img src="https://via.placeholder.com/400x180.png?text=Mod+Pack+v1" alt="Mod Pack v1"/>
+          <div class="info">
+            <h3>Mod Pack v1</h3>
+            <p>Enhance gameplay with exclusive textures, levels, and QoL tweaks.</p>
+            <div class="price">$9.99</div>
+            <button class="buy-btn" data-product="product1">Buy Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="lessons" class="tab-content" role="tabpanel" aria-labelledby="lessons-tab">
+      <div class="product-grid">
+        <div class="card">
+          <img src="https://via.placeholder.com/400x180.png?text=Python+Lessons+Basic" alt="Python Lessons Basic"/>
+          <div class="info">
+            <h3>Python Coding Lessons</h3>
+            <p>Learn Python fundamentals: data types, functions, OOP, and projects.</p>
+            <div class="price">$19.99</div>
+            <button class="buy-btn" data-product="product2">Buy Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer id="contact">
+    &copy; 2025 Modℓify • <a href="mailto:you@domain.com" style="color:var(--accent)">you@domain.com</a>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = document.querySelectorAll('.tabs button');
+      const contents = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          const target = tab.getAttribute('data-tab');
+          contents.forEach(c => {
+            c.id === target ? c.classList.add('active') : c.classList.remove('active');
+          });
+        });
+      });
+
+      document.querySelectorAll('.buy-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (btn.disabled) return;
+          btn.disabled = true;
+          const origText = btn.textContent;
+          btn.textContent = 'Processing...';
+          try {
+            const res = await fetch('/create-checkout-session', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ productId: btn.getAttribute('data-product') })
+            });
+            const { url } = await res.json();
+            window.location = url;
+          } catch (err) {
+            alert('Error processing payment. Please try again.');
+            console.error(err);
+            btn.disabled = false;
+            btn.textContent = origText;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
