@@ -4,34 +4,23 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Koma XS Services Store</title>
-
-  <!-- SEO & Social Meta Tags -->
   <meta name="description" content="Koma XS Services—premium game mods & hands-on Python lessons. Secure crypto checkout via NowPayments—no KYC required!"/>
   <meta name="keywords" content="game mods, Python lessons, crypto payments, NowPayments, anonymous"/>
   <meta name="author" content="Koma XS Services"/>
-
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Koma XS Services Store"/>
   <meta property="og:description" content="Premium game mods & hands-on Python lessons. Secure crypto checkout via NowPayments."/>
   <meta property="og:url" content="https://koma-xs-services.vercel.app/"/>
   <meta property="og:image" content="https://raw.githubusercontent.com/KomaVR/KomaXSServices/main/33bb8250-3ea3-4a43-bf58-dd872cd02b1b.png"/>
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Koma XS Services Store"/>
   <meta name="twitter:description" content="Premium game mods & hands-on Python lessons. Secure crypto checkout via NowPayments."/>
   <meta name="twitter:image" content="https://raw.githubusercontent.com/KomaVR/KomaXSServices/main/33bb8250-3ea3-4a43-bf58-dd872cd02b1b.png"/>
   <meta name="twitter:site" content="https://koma-xs-services.vercel.app/"/>
-
-  <!-- Mobile & Favicon -->
   <meta name="theme-color" content="#050505"/>
   <link rel="icon" href="/favicon.ico"/>
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet"/>
-
   <style>
     :root {
       --bg: #050505;
@@ -146,8 +135,6 @@
     .price {
       font-weight: 500; font-size: 1.2rem; margin-bottom: 1rem;
     }
-
-    /* Custom Pay Button */
     .crypto-btn {
       display: inline-block;
       width: 100%;
@@ -212,7 +199,7 @@
           </button>
         </div>
       </div>
-      <!-- more mod cards… -->
+      <!-- more mod cards here when i have more products… -->
     </section>
 
     <section id="lessons" class="tab-content">
@@ -229,7 +216,7 @@
           </button>
         </div>
       </div>
-      <!-- more lesson cards… -->
+      <!-- more lesson cards if i decide to add more… -->
     </section>
   </main>
 
@@ -239,7 +226,6 @@
   </footer>
 
   <script>
-    // Tab switching + staggered card reveal
     const tabs = document.querySelectorAll('nav .tabs button');
     const panels = document.querySelectorAll('.tab-content');
     tabs.forEach(btn => {
@@ -263,7 +249,6 @@
         });
       });
     });
-
     window.addEventListener('load', () => {
       document.querySelectorAll('#mods .card').forEach((c, i) => {
         setTimeout(() => c.classList.add('visible'), i * 150);
