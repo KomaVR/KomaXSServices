@@ -9,34 +9,52 @@
   <style>
     :root {
       --bg: #050505;
-      --surface: rgba(30,30,30,0.8);
+      --surface: rgba(30,30,30,0.85);
       --accent: #ff64c8;
       --text: #e5e5e5;
       --shadow: rgba(255,100,200,0.2);
+      --transition: 0.3s ease;
     }
-    * { box-sizing: border-box; margin:0; padding:0 }
-    body {
-      font-family: 'Poppins',sans-serif;
+    @keyframes hueShift {
+      0%   { filter: hue-rotate(0deg); }
+      50%  { filter: hue-rotate(180deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    body::before {
+      content: '';
+      position: fixed; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(60deg, #ff64c8, #7f00ff, #00ffe7);
+      animation: hueShift 20s linear infinite;
+      mix-blend-mode: overlay;
+      z-index: -1;
     }
     header {
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
       background: var(--surface);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; position: sticky; top: 0; z-index: 10;
       box-shadow: 0 2px 12px var(--shadow);
+      animation: fadeInUp 0.6s both;
     }
     header h1 {
-      font-family: 'Orbitron',sans-serif;
+      font-family: 'Orbitron', sans-serif;
       color: var(--accent);
-      font-size: 1.75rem;
+      font-size: 1.8rem;
       letter-spacing: 2px;
     }
     nav .tabs {
@@ -44,20 +62,33 @@
       display: flex;
     }
     nav .tabs button {
-      background: none;
-      border: none;
-      padding: .5rem 1rem;
-      margin-left: 1rem;
-      font-family: 'Orbitron',sans-serif;
+      position: relative;
+      background: none; border: none;
+      margin-left: 1.5rem; padding: .5rem 0;
+      font-family: 'Orbitron', sans-serif;
       font-size: .95rem;
       color: var(--text);
       cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: color .3s, border-bottom .3s;
+      transition: color var(--transition);
+    }
+    nav .tabs button::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: var(--accent);
+      transition: width var(--transition);
+    }
+    nav .tabs button:hover {
+      color: var(--accent);
+    }
+    nav .tabs button:hover::after {
+      width: 100%;
     }
     nav .tabs button.active {
       color: var(--accent);
-      border-bottom-color: var(--accent);
+    }
+    nav .tabs button.active::after {
+      width: 100%;
     }
     main {
       max-width: 1200px;
@@ -67,10 +98,11 @@
     .hero {
       text-align: center;
       padding: 4rem 1rem;
+      animation: fadeInUp 0.8s both 0.3s;
     }
     .hero h2 {
-      font-family: 'Orbitron',sans-serif;
-      font-size: 2.75rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
       color: var(--accent);
       text-shadow: 0 0 12px var(--shadow);
       margin-bottom: .5rem;
@@ -79,16 +111,14 @@
       max-width: 600px;
       margin: 0 auto;
       color: #bbb;
-      font-size: 1.05rem;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-      gap: 2rem;
-      margin-top: 2rem;
+      font-size: 1.1rem;
     }
     .tab-content {
       display: none;
+      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+      animation: fadeInUp 0.6s both;
     }
     .tab-content.active {
       display: grid;
@@ -98,7 +128,11 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 20px var(--shadow);
-      transition: transform .3s, box-shadow .3s;
+      transition: transform var(--transition), box-shadow var(--transition);
+      opacity: 0; transform: translateY(20px);
+    }
+    .card.visible {
+      opacity: 1; transform: translateY(0);
     }
     .card:hover {
       transform: translateY(-8px);
@@ -108,23 +142,28 @@
       width: 100%;
       height: 180px;
       object-fit: cover;
+      transition: transform var(--transition);
+    }
+    .card:hover img {
+      transform: scale(1.05);
     }
     .info {
       padding: 1.5rem;
     }
     .info h3 {
-      font-family: 'Orbitron',sans-serif;
+      font-family: 'Orbitron', sans-serif;
       color: var(--accent);
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       margin-bottom: .5rem;
     }
     .info p {
       color: #bbb;
       margin-bottom: 1rem;
+      line-height: 1.4;
     }
     .price {
       font-weight: 500;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       margin-bottom: 1rem;
     }
     .buy-btn {
@@ -134,28 +173,28 @@
       color: #000;
       border: none;
       border-radius: 8px;
-      font-family: 'Orbitron',sans-serif;
+      font-family: 'Orbitron', sans-serif;
       font-size: 1rem;
       cursor: pointer;
-      transition: background .2s, transform .1s;
+      transition: background var(--transition);
+    }
+    .buy-btn:hover:not(:disabled) {
+      background: #ff33aa;
     }
     .buy-btn:disabled {
       background: #444;
       cursor: not-allowed;
-    }
-    .buy-btn:hover:not(:disabled) {
-      background: #ff33aa;
-      transform: scale(1.02);
     }
     footer {
       text-align: center;
       padding: 2rem 1rem;
       color: #555;
       font-size: .9rem;
+      animation: fadeInUp 0.6s both 0.5s;
     }
     @media (max-width: 600px) {
-      header { flex-direction: column; align-items: flex-start }
-      nav .tabs { margin-top: .5rem }
+      header { flex-direction: column; align-items: flex-start; }
+      nav .tabs { margin-top: .5rem; }
     }
   </style>
 </head>
@@ -164,8 +203,8 @@
     <h1>Koma XS Services</h1>
     <nav>
       <ul class="tabs" role="tablist">
-        <li><button data-tab="mods" class="active" role="tab" aria-selected="true">Game Mods</button></li>
-        <li><button data-tab="lessons" role="tab" aria-selected="false">Python Lessons</button></li>
+        <li><button data-tab="mods" class="active" aria-selected="true" role="tab">Game Mods</button></li>
+        <li><button data-tab="lessons" aria-selected="false" role="tab">Python Lessons</button></li>
       </ul>
     </nav>
   </header>
@@ -176,21 +215,22 @@
       <p>Premium game mods and hands-on Python lessons—secure checkout with Stripe & Google Pay.</p>
     </section>
 
-    <section id="mods" class="product-grid tab-content active">
+    <section id="mods" class="tab-content active">
       <div class="card">
-        <img src="https://raw.githubusercontent.com/KomaVR/KomaXSServices/refs/heads/main/23efa195-9683-4214-8878-5ecc77158b27%7E2.png?token=GHSAT0AAAAAAC76PNYH3NR2EDB3Z2ZVOCWK2BI4R2A" alt="Ultimate Mod Pack"/>
+        <img src="https://raw.githubusercontent.com/KomaVR/KomaXSServices/refs/heads/main/23efa195-9683-4214-8878-5ecc77158b27~2.png" alt="Custom Modded Apk"/>
         <div class="info">
-          <h3>Custom Modded apk</h3>
-          <p>Admin items, gameplay enhancing cheats and more.</p>
+          <h3>Custom Modded Apk</h3>
+          <p>Admin items, gameplay-enhancing cheats, and more.</p>
           <div class="price">$12.99</div>
           <button class="buy-btn" data-product="product1">Buy Now</button>
         </div>
       </div>
+      <!-- More mod cards can go here -->
     </section>
 
-    <section id="lessons" class="product-grid tab-content">
+    <section id="lessons" class="tab-content">
       <div class="card">
-        <img src="https://raw.githubusercontent.com/KomaVR/KomaXSServices/refs/heads/main/01a3b797-589e-40b9-a0aa-ae00d169cd70%7E3.png?token=GHSAT0AAAAAAC76PNYGBPEWLK3KTGDGRFYO2BI4Q3Q" alt="Python 101"/>
+        <img src="https://raw.githubusercontent.com/KomaVR/KomaXSServices/refs/heads/main/01a3b797-589e-40b9-a0aa-ae00d169cd70~3.png" alt="Python 101"/>
         <div class="info">
           <h3>Python 101</h3>
           <p>From variables to LOOPS: your hands-on guide to Python mastery.</p>
@@ -198,48 +238,67 @@
           <button class="buy-btn" data-product="product2">Buy Now</button>
         </div>
       </div>
+      <!-- More lesson cards can go here -->
     </section>
   </main>
 
   <footer>
-    &copy; 2025 Koma XS Services • <a href="mailto:komacspentest@gmail.com" style="color:var(--accent)">komacspentest@gmail.com</a>
+    &copy; 2025 Koma XS Services •
+    <a href="mailto:komacspentest@gmail.com" style="color: var(--accent)">komacspentest@gmail.com</a>
   </footer>
 
   <script>
+    // Tab switching + staggered reveal
     const tabs = document.querySelectorAll('nav .tabs button');
     const panels = document.querySelectorAll('.tab-content');
     tabs.forEach(btn => {
       btn.addEventListener('click', () => {
         tabs.forEach(t => {
           t.classList.remove('active');
-          t.setAttribute('aria-selected','false');
+          t.setAttribute('aria-selected', 'false');
         });
         btn.classList.add('active');
-        btn.setAttribute('aria-selected','true');
-        const target = btn.dataset.tab;
-        panels.forEach(p => {
-          p.id === target ? p.classList.add('active') : p.classList.remove('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        panels.forEach(panel => {
+          if (panel.id === btn.dataset.tab) {
+            panel.classList.add('active');
+            panel.querySelectorAll('.card').forEach((c,i) => {
+              setTimeout(() => c.classList.add('visible'), i * 150);
+            });
+          } else {
+            panel.classList.remove('active');
+            panel.querySelectorAll('.card').forEach(c => c.classList.remove('visible'));
+          }
         });
       });
     });
 
+    // Initial reveal for mods
+    window.addEventListener('load', () => {
+      document.querySelectorAll('#mods .card').forEach((c,i) => {
+        setTimeout(() => c.classList.add('visible'), i * 150);
+      });
+    });
+
+    // Buy button flow
     document.querySelectorAll('.buy-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
         btn.disabled = true;
-        const text = btn.textContent;
+        const label = btn.textContent;
         btn.textContent = 'Processing…';
         try {
           const res = await fetch('/create-checkout-session', {
             method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({productId: btn.dataset.product})
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productId: btn.dataset.product })
           });
-          const {url} = await res.json();
+          const { url } = await res.json();
           window.location = url;
         } catch {
           alert('Payment error, please try again.');
           btn.disabled = false;
-          btn.textContent = text;
+          btn.textContent = label;
         }
       });
     });
