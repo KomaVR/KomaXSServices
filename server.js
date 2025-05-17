@@ -1,40 +1,59 @@
-require('dotenv').config();
-const express = require('express');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const helmet = require('helmet');
-const path = require('path');
-const bodyParser = require('body-parser');
+require('dotenv').config()
+const express = require('express')
+const fetch   = require('node-fetch')
+const path    = require('path')
 
-const app = express();
-app.use(helmet());
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+const app = express()
+app.use(express.json())
+app.use(express.static(path.join(__dirname, 'public')))
+
+const { BTCPAY_URL, BTCPAY_API_KEY, DOMAIN } = process.env
 
 const products = {
-  product1: { name: 'Mod Pack v1', priceId: process.env.PRODUCT1_PRICE_ID },
-  product2: { name: 'Python Coding Lessons - Basic', priceId: process.env.PRODUCT2_PRICE_ID }
-};
-
-app.post('/create-checkout-session', async (req, res) => {
-  const { productId } = req.body;
-  const product = products[productId];
-  if (!product) {
-    return res.status(400).json({ error: 'Invalid product ID' });
+  product1: {
+    name:     'Custom Modded Apk',
+    amount:   process.env.PRODUCT1_AMT,
+    currency: process.env.PRODUCT1_CURRENCY
+  },
+  product2: {
+    name:     'Python 101 Lessons',
+    amount:   process.env.PRODUCT2_AMT,
+    currency: process.env.PRODUCT2_CURRENCY
   }
+}
+
+app.post('/create-crypto-invoice', async (req, res) => {
+  const { productId } = req.body
+  const prod = products[productId]
+  if (!prod) return res.status(400).json({ error: 'Invalid product ID' })
+
   try {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [{ price: product.priceId, quantity: 1 }],
-      mode: 'payment',
-      success_url: `${process.env.DOMAIN}/success.html`,
-      cancel_url: `${process.env.DOMAIN}/cancel.html`
-    });
-    res.json({ url: session.url });
+    const resp = await fetch(`${BTCPAY_URL}/invoices`, {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'Authorization': `token ${BTCPAY_API_KEY}`
+      },
+      body: JSON.stringify({
+        Amount:    prod.amount,
+        currency:  prod.currency,
+        metadata:  { product: prod.name },
+        checkout:  {
+          speedPolicy:           'HighSpeed',
+          redirectAutomatically: true
+        }
+      })
+    })
+    const invoice = await resp.json()
+    const invoiceUrl = invoice.checkoutLink || invoice.url
+    return res.json({ invoiceUrl })
   } catch (err) {
-    console.error('Stripe error:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('BTCPay error:', err)
+    return res.status(500).json({ error: 'Could not create invoice' })
   }
-});
+})
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Server running at ${process.env.DOMAIN}`));
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at ${DOMAIN}`)
+})
