@@ -1,0 +1,27 @@
+{
+  "name": "mods-lessons-store",
+  "version": "1.2.0",
+  "description": "A sleek store to sell game mods and Python coding lessons with Stripe.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/mods-lessons-store.git"
+  },
+  "keywords": ["stripe","store","mods","lessons","tabs","responsive"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "stripe": "^12.10.0",
+    "helmet": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
